@@ -1,9 +1,9 @@
 :root {
   --primary-color: #09fcfd;
-  --secondary-color: #510303;
-  --size-unit: 64px;
-  --explosion-animation-time: 600ms;
-  --ship-animation-time: 200ms;
+  /* --secondary-color: #510303; */
+  /* --size-unit: 64px; */
+  /* --explosion-animation-time: 600ms; */
+  /* --ship-animation-time: 200ms; */
 }
 
 *,
