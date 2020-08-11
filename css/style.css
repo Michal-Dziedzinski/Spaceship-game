@@ -1,9 +1,9 @@
 :root {
   --primary-color: #09fcfd;
   /* --secondary-color: #510303; */
-  /* --size-unit: 64px; */
-  /* --explosion-animation-time: 600ms; */
-  /* --ship-animation-time: 200ms; */
+  --size-unit: 64px;
+  --explosions-animation-time: 600ms;
+  --ships-animation-time: 200ms;
 }
 
 *,
@@ -75,4 +75,100 @@ body {
 
 .hide {
   display: none;
+}
+
+.spaceship {
+  /* width: 64px; */
+  /* height: 64px; */
+  width: var(--size-unit);
+  height: var(--size-unit);
+  background-image: url('../images/ship.png');
+  /* animation: move-8-units-X 200ms steps(8) infinite; */
+  animation: move-8-units-X var(--ships-animation-time) steps(8) infinite;
+  /* position: fixed; */
+}
+.enemy {
+  /* width: 64px; */
+  /* height: 64px; */
+  width: var(--size-unit);
+  height: var(--size-unit);
+  background-image: url('../images/enemy.png');
+  /* animation: move-5-units-X 200ms steps(5) infinite; */
+  animation: move-5-units-X var(--ships-animation-time) steps(5) infinite;
+  /* position: fixed; */
+  /* z-index: 1; */
+}
+.enemy--big {
+  /* width: 128px; */
+  /* height: 128px; */
+  width: calc(var(--size-unit) * 2);
+  height: calc(var(--size-unit) * 2);
+  background-image: url('../images/enemy-big.png');
+  /* animation: move-16-units-X 200ms steps(8) infinite; */
+  animation: move-16-units-X var(--ships-animation-time) steps(8) infinite;
+  /* position: fixed; */
+}
+.explosion {
+  /* width: 64px; */
+  /* height: 64px; */
+  width: var(--size-unit);
+  height: var(--size-unit);
+  background-image: url('../images/explosion.png');
+  /* animation: move-16-units-X 600ms steps(16) forwards; */
+  animation: move-16-units-X var(--explosions-animation-time) steps(16) infinite;
+  /* animation: move-16-units-X var(--explosions-animation-time) steps(16) forwards; */
+  /* position: fixed; */
+}
+.explosion--big {
+  /* width: 128px; */
+  /* height: 128px; */
+  width: calc(var(--size-unit) * 2);
+  height: calc(var(--size-unit) * 2);
+  background-image: url('../images/explosion-big.png');
+  /* animation: move-34-units-X 600ms steps(17) forwards; */
+  animation: move-34-units-X var(--explosions-animation-time) steps(17) infinite;
+  /* animation: move-34-units-X var(--explosions-animation-time) steps(17) forwards; */
+  /* position: fixed; */
+}
+
+.missile {
+  background-image: url('../images/missile.png');
+  background-size: cover;
+  width: 12px;
+  height: 24px;
+  /* position: absolute; */
+  /* bottom: var(--size-unit); */
+}
+
+@keyframes move-8-units-X {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -8);
+  }
+}
+@keyframes move-5-units-X {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -5);
+  }
+}
+@keyframes move-16-units-X {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -16);
+  }
+}
+@keyframes move-34-units-X {
+  from {
+    background-position-x: 0px;
+  }
+  to {
+    background-position-x: calc(var(--size-unit) * -34);
+  }
 }
