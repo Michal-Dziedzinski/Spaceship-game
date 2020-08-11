@@ -78,56 +78,39 @@ body {
 }
 
 .spaceship {
-  /* width: 64px; */
-  /* height: 64px; */
   width: var(--size-unit);
   height: var(--size-unit);
   background-image: url('../images/ship.png');
-  /* animation: move-8-units-X 200ms steps(8) infinite; */
   animation: move-8-units-X var(--ships-animation-time) steps(8) infinite;
-  /* position: fixed; */
+  position: fixed;
 }
 .enemy {
-  /* width: 64px; */
-  /* height: 64px; */
   width: var(--size-unit);
   height: var(--size-unit);
   background-image: url('../images/enemy.png');
-  /* animation: move-5-units-X 200ms steps(5) infinite; */
   animation: move-5-units-X var(--ships-animation-time) steps(5) infinite;
   /* position: fixed; */
   /* z-index: 1; */
 }
 .enemy--big {
-  /* width: 128px; */
-  /* height: 128px; */
   width: calc(var(--size-unit) * 2);
   height: calc(var(--size-unit) * 2);
   background-image: url('../images/enemy-big.png');
-  /* animation: move-16-units-X 200ms steps(8) infinite; */
   animation: move-16-units-X var(--ships-animation-time) steps(8) infinite;
   /* position: fixed; */
 }
 .explosion {
-  /* width: 64px; */
-  /* height: 64px; */
   width: var(--size-unit);
   height: var(--size-unit);
   background-image: url('../images/explosion.png');
-  /* animation: move-16-units-X 600ms steps(16) forwards; */
-  animation: move-16-units-X var(--explosions-animation-time) steps(16) infinite;
-  /* animation: move-16-units-X var(--explosions-animation-time) steps(16) forwards; */
+  animation: move-16-units-X var(--explosions-animation-time) steps(16) forwards;
   /* position: fixed; */
 }
 .explosion--big {
-  /* width: 128px; */
-  /* height: 128px; */
   width: calc(var(--size-unit) * 2);
   height: calc(var(--size-unit) * 2);
   background-image: url('../images/explosion-big.png');
-  /* animation: move-34-units-X 600ms steps(17) forwards; */
-  animation: move-34-units-X var(--explosions-animation-time) steps(17) infinite;
-  /* animation: move-34-units-X var(--explosions-animation-time) steps(17) forwards; */
+  animation: move-34-units-X var(--explosions-animation-time) steps(17) forwards;
   /* position: fixed; */
 }
 
