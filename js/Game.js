@@ -3,6 +3,8 @@ import { Enemy } from './Enemy.js';
 
 class Game {
   #domElements = {
+    score: document.querySelector('[data-score]'),
+    lives: document.querySelector('[data-lives]'),
     container: document.querySelector('[data-container]'),
     spaceship: document.querySelector('[data-spaceship]'),
   };
@@ -11,6 +13,8 @@ class Game {
     this.#domElements.container
   );
   #enemies = [];
+  #lives = null;
+  #score = null;
   #enemiesInterval = null;
   #checkPositionsInterval = null;
   #createEnemyInterval = null;
@@ -21,6 +25,8 @@ class Game {
   }
   #newGame() {
     this.#enemiesInterval = 30;
+    this.#lives = 3;
+    this.#score = 0;
     this.#createEnemyInterval = setInterval(() => this.#randomNewEnemy(), 1000);
     this.#checkPositionsInterval = setInterval(() => this.#checkPositions(), 1);
   }
@@ -57,6 +63,7 @@ class Game {
       if (enemyPosition.top > window.innerHeight) {
         enemy.explode();
         enemiesArr.splice(enemyIndex, 1);
+        this.#updateLives();
       }
       this.#ship.missiles.forEach((missile, missileIndex, missileArr) => {
         const missilePosition = {
@@ -77,6 +84,7 @@ class Game {
           }
           missile.remove();
           missileArr.splice(missileIndex, 1);
+          this.#updateScore();
         }
         if (missilePosition.bottom < 0) {
           missile.remove();
@@ -84,6 +92,28 @@ class Game {
         }
       });
     });
+  }
+  #updateScore() {
+    this.#score++;
+    if (!(this.#score % 5)) {
+      this.#enemiesInterval--;
+    }
+    this.#updateScoreText();
+  }
+  #updateLives() {
+    this.#lives--;
+    this.#updateLivesText();
+    this.#domElements.container.classList.add('hit');
+    setTimeout(() => this.#domElements.container.classList.remove('hit'), 100);
+    // if (!this.#lives) {
+    //   this.#endGame();
+    // }
+  }
+  #updateScoreText() {
+    this.#domElements.score.textContent = `Score: ${this.#score}`;
+  }
+  #updateLivesText() {
+    this.#domElements.lives.textContent = `Lives: ${this.#lives}`;
   }
 }
 

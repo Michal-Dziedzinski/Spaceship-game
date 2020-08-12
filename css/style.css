@@ -1,6 +1,6 @@
 :root {
   --primary-color: #09fcfd;
-  /* --secondary-color: #510303; */
+  --secondary-color: #510303;
   --size-unit: 64px;
   --explosions-animation-time: 600ms;
   --ships-animation-time: 200ms;
@@ -71,6 +71,10 @@ body {
 }
 .modal__button:hover {
   box-shadow: 0px 0px 20px 5px var(--primary-color);
+}
+
+.hit {
+  background-color: var(--secondary-color);
 }
 
 .hide {
