@@ -1,10 +1,14 @@
+import { Missile } from './Missile.js';
+
 export class Spaceship {
+  missiles = [];
   #modifier = 10;
   #leftArrow = false;
   #rightArrow = false;
 
-  constructor(element) {
+  constructor(element, container) {
     this.element = element;
+    this.container = container;
   }
 
   init() {
@@ -16,10 +20,7 @@ export class Spaceship {
   #setPosition() {
     this.element.style.bottom = `0px`;
     this.element.style.left = `${
-      window.innerWidth / 2 -
-      // this.element.offsetLeft +
-      // this.element.offsetWidth / 2
-      this.#getPosition()
+      window.innerWidth / 2 - this.#getPosition()
     }px`;
   }
 
@@ -28,22 +29,6 @@ export class Spaceship {
   }
 
   #eventListeners() {
-    // window.addEventListener('keydown', ({ keyCode }) => {
-    //   switch (keyCode) {
-    //     case 37:
-    //       this.element.style.left = `${
-    //         // parseInt(this.element.style.left, 10) - 10
-    //         parseInt(this.element.style.left, 10) - this.#modifier
-    //       }px`;
-    //       break;
-    //     case 39:
-    //       this.element.style.left = `${
-    //         // parseInt(this.element.style.left, 10) + 10
-    //         parseInt(this.element.style.left, 10) + this.#modifier
-    //       }px`;
-    //       break;
-    //   }
-    // });
     window.addEventListener('keydown', ({ keyCode }) => {
       switch (keyCode) {
         case 37:
@@ -62,18 +47,26 @@ export class Spaceship {
         case 39:
           this.#rightArrow = false;
           break;
-        // case 32:
-        //   this.#shot();
-        //   break;
+        case 32:
+          this.#shot();
+          break;
       }
     });
+  }
+  #shot() {
+    const missile = new Missile(
+      this.#getPosition(),
+      this.element.offsetTop,
+      this.container
+    );
+    missile.init();
+    this.missiles.push(missile);
   }
   #gameLoop = () => {
     this.#whatKey();
     requestAnimationFrame(this.#gameLoop);
   };
   #whatKey() {
-    // if (this.#leftArrow) {
     if (
       this.#leftArrow &&
       this.#getPosition() >
@@ -83,7 +76,6 @@ export class Spaceship {
         parseInt(this.element.style.left) - this.#modifier
       }px`;
     }
-    // if (this.#rightArrow) {
     if (
       this.#rightArrow &&
       this.#getPosition() < window.innerWidth /* + 12  < window.innerWidth */
