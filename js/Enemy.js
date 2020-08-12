@@ -1,16 +1,11 @@
 export class Enemy {
-  constructor(
-    container,
-    intervalTime,
-    enemyClass,
-    /* explosionClass, */ lives = 1
-  ) {
+  constructor(container, intervalTime, enemyClass, explosionClass, lives = 1) {
     this.container = container;
     this.element = document.createElement('div');
     this.interval = null;
     this.intervalTime = intervalTime;
     this.enemyClass = enemyClass;
-    // this.explosionClass = explosionClass;
+    this.explosionClass = explosionClass;
     this.lives = lives;
   }
 
@@ -40,26 +35,22 @@ export class Enemy {
   #setNewPosition() {
     this.element.style.top = `${this.element.offsetTop + 1}px`;
   }
-  remove() {
+  explode() {
+    this.element.classList.remove(this.enemyClass);
+    this.element.classList.add(this.explosionClass);
     clearInterval(this.interval);
-    this.element.remove();
+    const animationTime = parseInt(
+      getComputedStyle(document.documentElement).getPropertyValue(
+        '--explosions-animation-time'
+      ),
+      10
+    );
+    setTimeout(() => this.element.remove(), animationTime);
   }
-  // explode() {
-  //   this.element.classList.remove(this.enemyClass);
-  //   this.element.classList.add(this.explosionClass);
-  //   clearInterval(this.interval);
-  //   const animationTime = parseInt(
-  //     getComputedStyle(document.documentElement).getPropertyValue(
-  //       '--explosion-animation-time'
-  //     ),
-  //     10
-  //   );
-  //   setTimeout(() => this.element.remove(), animationTime);
-  // }
-  // hit() {
-  //   this.lives--;
-  //   if (!this.lives) {
-  //     this.explode();
-  //   }
-  // }
+  hit() {
+    this.lives--;
+    if (!this.lives) {
+      this.explode();
+    }
+  }
 }

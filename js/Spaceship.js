@@ -67,19 +67,12 @@ export class Spaceship {
     requestAnimationFrame(this.#gameLoop);
   };
   #whatKey() {
-    if (
-      this.#leftArrow &&
-      this.#getPosition() >
-        0 /* > 12 szerokość pocisku, jak dodane będzie strzelanie*/
-    ) {
+    if (this.#leftArrow && this.#getPosition() > 12) {
       this.element.style.left = `${
         parseInt(this.element.style.left) - this.#modifier
       }px`;
     }
-    if (
-      this.#rightArrow &&
-      this.#getPosition() < window.innerWidth /* + 12  < window.innerWidth */
-    ) {
+    if (this.#rightArrow && this.#getPosition() + 12 < window.innerWidth) {
       this.element.style.left = `${
         parseInt(this.element.style.left) + this.#modifier
       }px`;
