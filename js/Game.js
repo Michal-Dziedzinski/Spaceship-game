@@ -3,8 +3,11 @@ import { Enemy } from './Enemy.js';
 
 class Game {
   #domElements = {
+    button: document.querySelector('[data-button]'),
     score: document.querySelector('[data-score]'),
     lives: document.querySelector('[data-lives]'),
+    modal: document.querySelector('[data-modal]'),
+    scoreInfo: document.querySelector('[data-score-info]'),
     container: document.querySelector('[data-container]'),
     spaceship: document.querySelector('[data-spaceship]'),
   };
@@ -22,13 +25,29 @@ class Game {
   init() {
     this.#ship.init();
     this.#newGame();
+    this.#domElements.button.addEventListener('click', () => this.#newGame());
   }
   #newGame() {
+    this.#domElements.modal.classList.add('hide');
     this.#enemiesInterval = 30;
     this.#lives = 3;
     this.#score = 0;
+    this.#updateLivesText();
+    this.#updateScoreText();
+    this.#ship.element.style.left = '0px';
+    this.#ship.setPosition();
     this.#createEnemyInterval = setInterval(() => this.#randomNewEnemy(), 1000);
     this.#checkPositionsInterval = setInterval(() => this.#checkPositions(), 1);
+  }
+  #endGame() {
+    this.#domElements.modal.classList.remove('hide');
+    this.#domElements.scoreInfo.textContent = `You loose! Your score is: ${
+      this.#score
+    }`;
+    this.#enemies.forEach((enemy) => enemy.explode());
+    this.#enemies.length = 0;
+    clearInterval(this.#createEnemyInterval);
+    clearInterval(this.#checkPositionsInterval);
   }
   #randomNewEnemy() {
     const randomNumber = Math.floor(Math.random() * 5) + 1;
@@ -105,9 +124,9 @@ class Game {
     this.#updateLivesText();
     this.#domElements.container.classList.add('hit');
     setTimeout(() => this.#domElements.container.classList.remove('hit'), 100);
-    // if (!this.#lives) {
-    //   this.#endGame();
-    // }
+    if (!this.#lives) {
+      this.#endGame();
+    }
   }
   #updateScoreText() {
     this.#domElements.score.textContent = `Score: ${this.#score}`;
